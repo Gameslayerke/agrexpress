@@ -1,0 +1,51 @@
+/* Add this at the top of your CSS file */
+@font-face {
+  font-family: "Dit Magi";
+  src: url("../fonts/Dit-Magi-Demo-BF66c2bf0ae15dd.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.welcome-container {
+  height: 100vh;
+  background: #F28241;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #0b0101;
+  font-family: "Dit Magi", serif; /* Dit Magi applied here */
+}
+
+.welcome-title {
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 70px;
+  font-family: "Dit Magi", serif; /* Ensure title uses Dit Magi */
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-family: "Dit Magi", serif; /* Optional: subtitle also uses Dit Magi */
+}
+.continue-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  width: 300px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: "Dit Magi", serif;
+  color: #ffffff;
+  background-color: #0b0101;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-button:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+}
