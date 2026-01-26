@@ -1,46 +1,70 @@
-/* Add this at the top of your CSS file */
+/* =========================
+   Custom Font
+   ========================= */
 @font-face {
   font-family: "Dit Magi";
-  src: url("../fonts/Dit-Magi-Demo-BF66c2bf0ae15dd.otf") format("truetype");
+  src: url("../fonts/Dit-Magi-Demo-BF66c2bf0ae15dd.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
+/* =========================
+   Welcome Page Container
+   ========================= */
 .welcome-container {
-  height: 100vh;
-  background: #F28241;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100vw;
+
+  background-image: url("../../public/images/WhatsApp\ Image\ 2026-01-24\ at\ 03.32.29.jpeg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #0b0101;
-  font-family: "Dit Magi", serif; /* Dit Magi applied here */
+
+  padding: env(safe-area-inset-top)
+           env(safe-area-inset-right)
+           env(safe-area-inset-bottom)
+           env(safe-area-inset-left);
+
+  font-family: "Dit Magi", serif;
 }
 
+/* =========================
+   Optional Text Styles
+   ========================= */
 .welcome-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 70px;
-  font-family: "Dit Magi", serif; /* Ensure title uses Dit Magi */
 }
 
 .welcome-subtitle {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 3vw, 1.3rem);
   opacity: 0.9;
-  font-family: "Dit Magi", serif; /* Optional: subtitle also uses Dit Magi */
 }
+
+/* =========================
+   Continue Button
+   ========================= */
 .continue-button {
-  margin-top: 30px;
+  margin-top: 450px;
   padding: 12px 30px;
-  width: 300px;
+  width: min(300px, 90%);
   font-size: 1.2rem;
   font-weight: 600;
   font-family: "Dit Magi", serif;
+
   color: #ffffff;
   background-color: #0b0101;
   border: none;
   border-radius: 10px;
+
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -48,4 +72,15 @@
 .continue-button:hover {
   background-color: #333333;
   transform: translateY(-2px);
+}
+
+/* =========================
+   Mobile Image Fix
+   ========================= */
+@media (max-width: 768px) {
+  .welcome-container {
+    background-size: contain;
+    background-position: center;
+    background-color: #ffffff; /* 👈 white fill instead of black */
+  }
 }

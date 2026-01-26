@@ -83,7 +83,7 @@ const Navbar = () => {
               <div className="logo-icon">
                 <Truck size={20} color="white" />
               </div>
-              <span className="logo-text">SwiftDeliver</span>
+              <span className="logo-text">Pick-N-go</span>
             </a>
           </div>
           
