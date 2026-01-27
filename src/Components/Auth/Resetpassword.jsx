@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { Box, TextField, Button, Typography, Container, Paper, Alert, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
+import logo from '../../assets/image.png'; // make sure this exists in src/assets
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -11,7 +12,15 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(8),
   borderRadius: 12,
   boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+  textAlign: 'center',
 }));
+
+const LogoImage = styled('img')({
+  width: 100,
+  maxWidth: '100%',
+  marginBottom: 16,
+  objectFit: 'contain',
+});
 
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
@@ -25,7 +34,6 @@ const ResetPasswordForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if token is valid when component mounts
     if (!token) {
       setTokenValid(false);
       setError('Invalid or missing reset token');
@@ -49,7 +57,7 @@ const ResetPasswordForm = () => {
     try {
       const response = await axios.post('https://alvins.pythonanywhere.com/api/reset-password', {
         token,
-        password
+        password,
       });
       setSuccess(response.data.message);
       setTimeout(() => navigate('/login'), 3000);
@@ -64,6 +72,7 @@ const ResetPasswordForm = () => {
     return (
       <Container component="main" maxWidth="xs">
         <StyledPaper elevation={3}>
+          <LogoImage src={logo} alt="App logo" />
           <Typography component="h1" variant="h5" align="center" gutterBottom>
             Invalid Token
           </Typography>
@@ -71,11 +80,7 @@ const ResetPasswordForm = () => {
             The password reset link is invalid or has expired. Please request a new one.
           </Alert>
           <Box textAlign="center">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate('/forgotpassword')}
-            >
+            <Button variant="contained" color="primary" onClick={() => navigate('/forgotpassword')}>
               Request New Link
             </Button>
           </Box>
@@ -87,6 +92,7 @@ const ResetPasswordForm = () => {
   return (
     <Container component="main" maxWidth="xs">
       <StyledPaper elevation={3}>
+        <LogoImage src={logo} alt="App logo" />
         <Typography component="h1" variant="h5" align="center" gutterBottom>
           Reset Your Password
         </Typography>
@@ -94,16 +100,8 @@ const ResetPasswordForm = () => {
           Please enter your new password below.
         </Typography>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-        )}
-        {success && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            {success}
-          </Alert>
-        )}
+        {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
+        {success && <Alert severity="success" sx={{ mb: 3 }}>{success}</Alert>}
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
           <TextField

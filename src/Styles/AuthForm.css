@@ -60,8 +60,8 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #3182ce;
-  box-shadow: 0 0 0 1px #3182ce;
+  border-color: #c3cad1;
+  box-shadow: 0 0 0 1px #1E4D25;
 }
 
 .form-options {
@@ -102,12 +102,12 @@
 }
 
 .auth-button.primary {
-  background-color: #3182ce;
+  background-color: #a4ce31;
   color: white;
 }
 
 .auth-button.primary:hover {
-  background-color: #2c5282;
+  background-color: #30822c;
 }
 
 .auth-button:disabled {
@@ -387,7 +387,7 @@
   width: 100%;
   padding: 12px 20px;
   margin: 15px 0;
-  background-color: #4a6bff;
+  background-color: #F2AB1E;
   color: white;
   border: none;
   border-radius: 6px;
@@ -399,7 +399,7 @@
 }
 
 .auth-button:hover {
-  background-color: #3a56d4;
+  background-color: #1E4D25;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -480,4 +480,11 @@
 .facebook-signin-button:hover {
   background-color: #f0f4ff;
   border-color: #c6d4ff;
+}
+.auth-logo {
+  width: 220px;
+  max-width: 80%;
+  margin: 0 auto 16px;
+  display: block;
+  object-fit: contain;
 }

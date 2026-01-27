@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../Styles/AuthForm.css'; 
+import logo from '../../assets/image.png'; // make sure the file exists here
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,6 @@ const SignUp = () => {
     e.preventDefault();
     setError('');
 
-    // Client-side validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -37,9 +37,7 @@ const SignUp = () => {
     try {
       const response = await fetch('https://alvins.pythonanywhere.com/api/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: formData.username,
           email: formData.email,
@@ -54,8 +52,7 @@ const SignUp = () => {
         throw new Error(data.error || 'Registration failed');
       }
 
-      // Redirect to login page after successful registration
-      navigate('/login');
+      navigate('/login'); // redirect after success
     } catch (err) {
       setError(err.message);
     } finally {
@@ -66,9 +63,15 @@ const SignUp = () => {
   return (
     <div className="auth-container">
       <div className="auth-form-wrapper">
+        {/* Logo Header */}
         <div className="auth-form-header">
+          <img
+            src={logo}
+            alt="App logo"
+            className="auth-logo"
+          />
           <h2>Create Account</h2>
-          <p>Join us today to start shopping</p>
+          <p>Join us today to start experience our services.</p>
         </div>
 
         {error && <div className="error-message">{error}</div>}
@@ -148,7 +151,9 @@ const SignUp = () => {
 
           <div className="terms-agreement">
             <input type="checkbox" id="terms" required />
-            <label htmlFor="terms">I agree to the <a href="/terms">Terms and Conditions</a></label>
+            <label htmlFor="terms">
+              I agree to the <a href="/terms">Terms and Conditions</a>
+            </label>
           </div>
 
           <button type="submit" className="auth-button" disabled={isLoading}>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../../Styles/AuthForm.css';
+import logo from '../../../src/assets/image.png';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -11,8 +12,16 @@ const SignIn = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, user } = useAuth();
+
+  const { login, isAuthenticated, loading: authLoading,  } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      navigate('/home', { replace: true });
+    }
+  }, [isAuthenticated, authLoading, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,20 +45,19 @@ const SignIn = () => {
       payload.email = formData.emailOrUsername;
     } else {
       payload.username = formData.emailOrUsername;
-      if (typeof login !== 'function') {
-        setError('Login function is not available. Please check your AuthContext.');
-        setLoading(false);
-        return;
-      }
     }
+
     try {
       const result = await login(payload);
-      if (result.success) {
-        navigate(user?.role === 'admin' ? '/admin' : '/home', { replace: true });
+
+      if (result?.success) {
+        // Redirect to /home after successful login
+        navigate('/home', { replace: true });
       } else {
-        setError(result.error || 'Login failed. Please try again.');
+        setError(result?.error || 'Login failed. Please try again.');
       }
     } catch (err) {
+      console.error(err);
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -57,26 +65,26 @@ const SignIn = () => {
   };
 
   const handleGoogleSignInClick = () => {
-    console.log('Google Sign-in button clicked');
     setError('Google Sign-in functionality not yet implemented.');
   };
 
-  const handleFacebookSignInClick = () => {
-    console.log('Facebook Sign-in button clicked');
-    setError('Facebook Sign-in functionality not yet implemented.');
-  };
+  if (authLoading) {
+    // Wait for AuthContext to finish checking token
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="auth-container">
       <div className="auth-form-wrapper">
         <div className="auth-form-header">
-          <h2>Welcome Back</h2>
+          <img src={logo} alt="App logo" className="auth-logo" />
           <p>Sign in to your account to continue</p>
         </div>
 
         {error && <div className="error-message">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          {/* Email / Username */}
           <div className="form-group">
             <label htmlFor="emailOrUsername">Email or Username</label>
             <input
@@ -91,6 +99,7 @@ const SignIn = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -100,10 +109,12 @@ const SignIn = () => {
               value={formData.password}
               onChange={handleChange}
               required
+              className="form-control"
               placeholder="Enter your password"
             />
           </div>
 
+          {/* Options */}
           <div className="form-options">
             <div className="remember-me">
               <input
@@ -115,9 +126,13 @@ const SignIn = () => {
               />
               <label htmlFor="rememberMe">Remember me</label>
             </div>
-            <a href="/forgotpassword" className="forgot-password">Forgot password?</a>
+
+            <Link to="/forgotpassword" className="forgot-password">
+              Forgot password?
+            </Link>
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="auth-button"
@@ -126,6 +141,7 @@ const SignIn = () => {
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
 
+          {/* Social Login */}
           <div className="social-auth-buttons">
             <button
               type="button"
@@ -139,22 +155,10 @@ const SignIn = () => {
               />
               Sign in with Google
             </button>
-            <button
-              type="button"
-              className="facebook-signin-button"
-              onClick={handleFacebookSignInClick}
-              disabled={loading}
-            >
-              <img
-                src="https://img.icons8.com/color/16/000000/facebook-new.png"
-                alt="Facebook logo"
-              />
-              Sign in with Facebook
-            </button>
           </div>
 
           <div className="auth-footer">
-            Don&apos;t have an account? <a href="/register">Sign up</a>
+            Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </div>
         </form>
       </div>

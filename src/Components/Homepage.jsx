@@ -1,425 +1,306 @@
-import React, { useState } from 'react';
-import { 
-  Menu, X, Phone, MessageCircle, MapPin, 
-  Clock, Package, Shield, Users, Truck,
-  ChevronRight, Star, CheckCircle, Navigation,
-  Home, Briefcase, DollarSign, Map
-} from 'lucide-react';
-import '../Styles/HomePage.css';
+import React, { useState } from "react";
+import "../Styles/HomePage.css";
 
 const HomePage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [trackingNumber, setTrackingNumber] = useState('');
-  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleTrack = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (trackingNumber) {
-      alert(`Tracking parcel: ${trackingNumber}`);
-      // In real app: router.push(`/track/${trackingNumber}`)
-    }
+    if (!email) return;
+
+    setLoading(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // TODO: Replace with actual API call to save subscriber email
+    console.log("User subscribed:", email);
+    setSubmitted(true);
+    setEmail("");
+    setLoading(false);
   };
-
-  const handleBook = () => {
-    // In real app: router.push('/book')
-    alert('Redirecting to booking page...');
-  };
-
-  const services = [
-    { icon: <Clock className="service-icon" />, title: 'Same-Day Delivery', desc: 'Within your city in hours' },
-    { icon: <Package className="service-icon" />, title: 'Next-Day Delivery', desc: 'Nationwide next day service' },
-    { icon: <Briefcase className="service-icon" />, title: 'Document Delivery', desc: 'Secure document handling' },
-    { icon: <Truck className="service-icon" />, title: 'Business Delivery', desc: 'E-commerce & bulk solutions' },
-  ];
-
-  const howItWorks = [
-    { step: '1', title: 'Book Online', desc: 'Book via app, website or call' },
-    { step: '2', title: 'We Pick Up', desc: 'Rider collects from your location' },
-    { step: '3', title: 'Track Live', desc: 'Monitor delivery in real-time' },
-    { step: '4', title: 'Safe Delivery', desc: 'Secure handover to recipient' },
-  ];
-
-  const whyChooseUs = [
-    { icon: <Clock className="feature-icon" />, text: 'Fast & On-Time Deliveries' },
-    { icon: <DollarSign className="feature-icon" />, text: 'Affordable Pricing' },
-    { icon: <Navigation className="feature-icon" />, text: 'Real-Time Tracking' },
-    { icon: <Users className="feature-icon" />, text: 'Professional Riders' },
-    { icon: <Shield className="feature-icon" />, text: 'Secure Handling' },
-    { icon: <Phone className="feature-icon" />, text: '24/7 Support' },
-  ];
-
-  const coverage = ['Nairobi', 'Mombasa', 'Kisumu', 'Eldoret', 'Nakuru', 'Thika'];
-
-  const testimonials = [
-    { name: 'Sarah K.', role: 'Small Business Owner', text: 'Their same-day delivery saved my business multiple times!', rating: 5 },
-    { name: 'John M.', role: 'E-commerce Seller', text: 'Reliable and affordable. My go-to delivery partner.', rating: 5 },
-    { name: 'Lisa W.', role: 'Student', text: 'Perfect for sending documents home. Always on time!', rating: 4 },
-  ];
 
   return (
-    <div className="homepage">
-      {/* Top Navigation Bar */}
-      <nav className="navbar">
-        <div className="container">
-          <div className="navbar-content">
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="menu-button"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+    <div className="homepage-wrapper">
+      {/* Background Elements */}
+      <div className="background-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+        <div className="shape shape-3"></div>
+      </div>
 
-            <div className="logo-container">
-              <div className="logo-icon">
-                <Truck size={20} color="white" />
-              </div>
-              <span className="logo-text">SwiftDeliver</span>
+      {/* Floating Delivery Icons */}
+      <div className="floating-delivery-icons">
+        <div className="delivery-icon">🚚</div>
+        <div className="delivery-icon">📦</div>
+        <div className="delivery-icon">🛵</div>
+        <div className="delivery-icon">🏍️</div>
+        <div className="delivery-icon">🚲</div>
+      </div>
+
+      <main className="homepage-container">
+        {/* Header with Navigation */}
+        <header className="brand-header">
+          <div className="brand-logo">
+            <span className="logo-icon">⚡</span>
+            <h1 className="logo-text">Zigo</h1>
+          </div>
+          <p className="brand-tagline">Everything Delivered. Anywhere. Anytime.</p>
+        </header>
+
+        {/* Hero Section */}
+        <section className="hero-section">
+          <div className="hero-content">
+            <div className="badge">
+              <span className="badge-text">LAUNCHING SOON</span>
+              <div className="badge-pulse"></div>
             </div>
+            
+            <h1 className="hero-title">
+              One Platform,
+              <span className="highlight"> All Deliveries</span>
+            </h1>
+            
+            <p className="hero-description">
+              Food, groceries, packages, documents, medicine, and more. Zigo connects you 
+              with the fastest delivery network in your city. Everything delivered in minutes.
+            </p>
 
-            <div className="contact-icons">
-              <a href="tel:+254700123456" className="contact-link phone-link">
-                <Phone size={20} />
-              </a>
-              <a 
-                href="https://wa.me/254700123456" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="contact-link whatsapp-link"
-              >
-                <MessageCircle size={20} />
-              </a>
+            {/* Delivery Stats */}
+            <div className="stats-container">
+              <div className="stat-item">
+                <span className="stat-number">24/7</span>
+                <span className="stat-label">Delivery Service</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">15min</span>
+                <span className="stat-label">Average Delivery</span>
+              </div>
+              {/* <div className="stat-item">
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Cities Launching</span>
+              </div> */}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Mobile Menu Drawer */}
-        {isMenuOpen && (
-          <div className="mobile-menu">
-            <div className="menu-content">
-              <a href="#" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-                <Home className="menu-icon" />
-                Home
-              </a>
-              
-              <div className="menu-item">
-                <button 
-                  onClick={() => setServicesMenuOpen(!servicesMenuOpen)}
-                  className="menu-toggle"
-                >
-                  <div className="flex items-center">
-                    <Package className="menu-icon" />
-                    Services
+        {/* Delivery Types Preview */}
+        <section className="delivery-types-section">
+          <h2 className="section-title">Everything You Need, Delivered</h2>
+          <p className="section-subtitle">From a single coffee to a full grocery order</p>
+          
+          <div className="delivery-types-grid">
+            <div className="delivery-type-card">
+              <div className="type-icon">🍔</div>
+              <h3 className="type-title">Food & Restaurants</h3>
+              <p className="type-description">Hot meals from your favorite restaurants</p>
+            </div>
+            
+            <div className="delivery-type-card">
+              <div className="type-icon">🛒</div>
+              <h3 className="type-title">Groceries</h3>
+              <p className="type-description">Fresh produce, pantry items & more</p>
+            </div>
+            
+            <div className="delivery-type-card">
+              <div className="type-icon">📦</div>
+              <h3 className="type-title">Packages</h3>
+              <p className="type-description">Same-day package delivery</p>
+            </div>
+            
+            <div className="delivery-type-card">
+              <div className="type-icon">💊</div>
+              <h3 className="type-title">Pharmacy</h3>
+              <p className="type-description">Medicines & health products</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Subscription Section */}
+        <section className="subscription-section">
+          <div className="subscription-card">
+            <div className="card-header">
+              <h2 className="card-title">Get Early Access & Exclusive Benefits</h2>
+              <p className="card-subtitle">
+                Be among the first to experience Zigo's revolutionary delivery platform
+              </p>
+            </div>
+
+            <div className="benefits-list">
+              <div className="benefit-item">
+                <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Free delivery for first month</span>
+              </div>
+              <div className="benefit-item">
+                <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Priority customer support</span>
+              </div>
+              <div className="benefit-item">
+                <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Exclusive launch discounts</span>
+              </div>
+            </div>
+
+            {!submitted ? (
+              <form className="subscription-form" onSubmit={handleSubmit}>
+                <div className="input-group">
+                  <div className="input-wrapper">
+                    <svg className="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <input
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="email-input"
+                      disabled={loading}
+                    />
                   </div>
-                  <ChevronRight className={`chevron-icon ${servicesMenuOpen ? 'chevron-rotated' : ''}`} />
-                </button>
+                  <button 
+                    type="submit" 
+                    className={`submit-button ${loading ? 'loading' : ''}`}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span className="button-loader"></span>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Join Waitlist
+                        <svg className="button-icon" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </div>
                 
-                {servicesMenuOpen && (
-                  <div className="submenu">
-                    <a href="#" className="submenu-item" onClick={() => setIsMenuOpen(false)}>Same-Day Delivery</a>
-                    <a href="#" className="submenu-item" onClick={() => setIsMenuOpen(false)}>Next-Day Delivery</a>
-                    <a href="#" className="submenu-item" onClick={() => setIsMenuOpen(false)}>Business Delivery</a>
-                    <a href="#" className="submenu-item" onClick={() => setIsMenuOpen(false)}>Nationwide Delivery</a>
-                  </div>
-                )}
+                <div className="privacy-note">
+                  <svg className="lock-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>Your email is safe with us. No spam, unsubscribe anytime.</span>
+                </div>
+              </form>
+            ) : (
+              <div className="success-message">
+                <div className="success-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="success-title">You're on the List! 🎉</h3>
+                <p className="success-text">
+                  Welcome to Zigo's early access program! You'll be the first to know when 
+                  we launch in your city and receive exclusive early user benefits.
+                </p>
+                <div className="success-actions">
+                  <button 
+                    className="share-button"
+                    onClick={() => setSubmitted(false)}
+                  >
+                    Invite Friends
+                  </button>
+                  <button 
+                    className="secondary-button"
+                    onClick={() => window.open('https://twitter.com/zigodelivery', '_blank')}
+                  >
+                    Follow Updates
+                  </button>
+                </div>
               </div>
-              
-              <a href="#" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-                <Navigation className="menu-icon" />
-                Track Parcel
-              </a>
-              
-              <a href="#" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-                <DollarSign className="menu-icon" />
-                Pricing
-              </a>
-              
-              <a href="#" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-                <Map className="menu-icon" />
-                Coverage Areas
-              </a>
-              
-              <a href="#" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-                <Users className="menu-icon" />
-                About Us
-              </a>
-              
-              <div className="mt-4 px-6">
-                <button className="become-rider-btn">
-                  Become a Rider
-                </button>
+            )}
+
+            {/* City Launch Progress */}
+            <div className="city-launch-section">
+              <h3 className="city-launch-title">Launching in Major Cities</h3>
+              <div className="city-tags">
+                <span className="city-tag">New York</span>
+                <span className="city-tag">Los Angeles</span>
+                <span className="city-tag">Chicago</span>
+                <span className="city-tag">Miami</span>
+                <span className="city-tag">+46 more</span>
               </div>
             </div>
           </div>
-        )}
-      </nav>
+        </section>
 
-      {/* Bottom Action Bar - Mobile Only */}
-      <div className="bottom-action-bar">
-        <div className="bottom-bar-content">
-          <div className="track-form">
-            <form onSubmit={handleTrack} className="relative">
-              <input
-                type="text"
-                value={trackingNumber}
-                onChange={(e) => setTrackingNumber(e.target.value)}
-                placeholder="Enter tracking ID"
-                className="track-input"
-              />
-              <button type="submit" className="track-submit">
-                <Navigation size={20} color="#9ca3af" />
-              </button>
-            </form>
+        {/* Features Section */}
+        <section className="features-section">
+          <div className="feature-card">
+            <div className="feature-icon-large">⚡</div>
+            <h3 className="feature-title-large">Super Fast Delivery</h3>
+            <p className="feature-description-large">Average delivery in 15-30 minutes</p>
           </div>
           
-          <button 
-            onClick={handleBook}
-            className="book-now-btn"
-          >
-            Book Now
-          </button>
-        </div>
-      </div>
+          <div className="feature-card">
+            <div className="feature-icon-large">🎯</div>
+            <h3 className="feature-title-large">Real-time Tracking</h3>
+            <p className="feature-description-large">Live tracking from pickup to delivery</p>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon-large">🛡️</div>
+            <h3 className="feature-title-large">Safe & Secure</h3>
+            <p className="feature-description-large">Contactless delivery & secure payments</p>
+          </div>
+        </section>
 
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <h1 className="hero-title">
-              Fast, Reliable Courier & Delivery Services
-            </h1>
-            <p className="hero-subtitle">
-              Same-day delivery • Nationwide coverage • Affordable rates
+        {/* Footer */}
+        <footer className="page-footer">
+          <div className="footer-content">
+            <div className="footer-logo">
+              <span className="logo-icon-small">⚡</span>
+              <span className="logo-text-small">Zigo</span>
+            </div>
+            
+            <p className="footer-tagline">
+              Delivering happiness to your doorstep
             </p>
             
-            {/* Desktop Tracking Input */}
-            <div className="desktop-tracking">
-              <form onSubmit={handleTrack} className="desktop-tracking-form">
-                <input
-                  type="text"
-                  value={trackingNumber}
-                  onChange={(e) => setTrackingNumber(e.target.value)}
-                  placeholder="Enter your tracking number here"
-                  className="desktop-track-input"
-                />
-                <button 
-                  type="submit"
-                  className="desktop-track-btn"
-                >
-                  Track Parcel
-                </button>
-              </form>
-            </div>
-
-            <div className="hero-buttons">
-              <button 
-                onClick={handleBook}
-                className="book-delivery-btn"
-              >
-                Book a Delivery
-              </button>
-              <button className="get-quote-btn">
-                Get a Quote
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="section section-white">
-        <div className="container">
-          <h2 className="section-title">Our Services</h2>
-          <div className="services-grid">
-            {services.map((service, index) => (
-              <div key={index} className="service-card">
-                <div className="service-icon">{service.icon}</div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-desc">{service.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <button className="view-all-btn">
-              View All Services <ChevronRight className="inline" size={16} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="section section-gray">
-        <div className="container">
-          <h2 className="section-title">How It Works</h2>
-          <div className="steps-grid">
-            {howItWorks.map((step, index) => (
-              <div key={index} className="step-card">
-                <div className="step-number">
-                  {step.step}
-                </div>
-                <h3 className="step-title">{step.title}</h3>
-                <p className="step-desc">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="section section-white">
-        <div className="container">
-          <h2 className="section-title">Why Choose SwiftDeliver</h2>
-          <div className="features-grid">
-            {whyChooseUs.map((item, index) => (
-              <div key={index} className="feature-item">
-                <div className="feature-icon">{item.icon}</div>
-                <span className="text-gray-800">{item.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Coverage Area */}
-      <section className="section coverage">
-        <div className="container">
-          <h2 className="section-title">Coverage Areas</h2>
-          <div className="text-center mb-6">
-            <p className="coverage-title">We deliver across all major towns in Kenya</p>
-            <div className="coverage-cities">
-              {coverage.map((city, index) => (
-                <span 
-                  key={index} 
-                  className="city-tag"
-                >
-                  <MapPin className="city-icon" size={16} />
-                  {city}
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="coverage-subtext">+20 more towns and growing!</p>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="section section-white">
-        <div className="container">
-          <h2 className="section-title">What Our Customers Say</h2>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial-rating">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`star-icon ${i < testimonial.rating ? 'star-filled' : 'star-empty'}`}
-                      size={20}
-                    />
-                  ))}
-                </div>
-                <p className="testimonial-text">"{testimonial.text}"</p>
-                <div>
-                  <p className="testimonial-name">{testimonial.name}</p>
-                  <p className="testimonial-role">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section cta">
-        <div className="container">
-          <div className="text-center">
-            <h2 className="cta-title">Ready to Send Your Package?</h2>
-            <p className="cta-subtitle">Book now and enjoy fast, secure delivery across Kenya</p>
-            <div className="cta-buttons">
-              <button 
-                onClick={handleBook}
-                className="cta-primary"
-              >
-                Book Delivery Now
-              </button>
-              <a 
-                href="https://wa.me/254700123456"
-                className="whatsapp-cta"
-              >
-                <MessageCircle className="whatsapp-icon" size={20} />
-                WhatsApp Us
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-grid">
-              <div>
-                <div className="footer-logo">
-                  <Truck className="footer-logo-icon" size={32} />
-                  <span className="footer-logo-text">SwiftDeliver</span>
-                </div>
-                <p className="footer-description">Fast, reliable courier services across Kenya.</p>
-              </div>
-              
-              <div>
-                <h3 className="footer-heading">Quick Links</h3>
-                <ul className="footer-links">
-                  <li><a href="#" className="footer-link">Track Parcel</a></li>
-                  <li><a href="#" className="footer-link">Book Delivery</a></li>
-                  <li><a href="#" className="footer-link">Get Quote</a></li>
-                  <li><a href="#" className="footer-link">Become a Rider</a></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="footer-heading">Contact</h3>
-                <ul className="footer-links">
-                  <li className="contact-item">
-                    <Phone className="contact-icon" size={16} />
-                    <a href="tel:+254700123456" className="footer-link">+254 700 123 456</a>
-                  </li>
-                  <li className="contact-item">
-                    <MessageCircle className="contact-icon" size={16} />
-                    <a href="https://wa.me/254700123456" className="footer-link">WhatsApp</a>
-                  </li>
-                  <li className="contact-item">
-                    <MapPin className="contact-icon" size={16} />
-                    <span>Nairobi, Kenya</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="footer-heading">Business Hours</h3>
-                <ul className="footer-links">
-                  <li className="business-hours">Mon-Fri: 6:00 AM - 10:00 PM</li>
-                  <li className="business-hours">Sat-Sun: 7:00 AM - 9:00 PM</li>
-                  <li className="business-hours">24/7 Support Available</li>
-                </ul>
-              </div>
+            <div className="footer-links">
+              <a href="#" className="footer-link">About</a>
+              <a href="#" className="footer-link">Careers</a>
+              <a href="#" className="footer-link">Partners</a>
+              <a href="#" className="footer-link">Contact</a>
             </div>
             
-            <div className="footer-bottom">
-              <p>&copy; {new Date().getFullYear()} SwiftDeliver. All rights reserved.</p>
+            <div className="social-links">
+              <a href="#" className="social-link" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.213c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+              </a>
+              <a href="#" className="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a href="#" className="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
             </div>
+            
+            <p className="footer-copyright">
+              © {new Date().getFullYear()} Zigo Deliveries. All rights reserved.
+            </p>
           </div>
-        </div>
-      </footer>
-
-      {/* Floating WhatsApp Button - Mobile Only */}
-      <div className="floating-whatsapp">
-        <a 
-          href="https://wa.me/254700123456"
-          className="whatsapp-button"
-        >
-          <MessageCircle size={24} />
-        </a>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 };

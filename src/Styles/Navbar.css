@@ -494,3 +494,122 @@
     display: none;
   }
 }
+/* Add these styles to your existing HomePage.css */
+
+/* Brand Header with Logo */
+.brand-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 20px 0;
+}
+
+.brand-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Logo SVG Styling */
+.logo-svg {
+  width: 60px;
+  height: 60px;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+/* Logo Image (for imported logo files) */
+.logo-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+/* Text logo container */
+.logo-text-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+.logo-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.brand-tagline {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  opacity: 0.9;
+}
+
+/* Logo Animation */
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Responsive Logo */
+@media (max-width: 768px) {
+  .logo-svg,
+  .logo-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .brand-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-svg,
+  .logo-image {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-text {
+    font-size: 1.75rem;
+  }
+  
+  .logo-text-container {
+    gap: 8px;
+  }
+  
+  .logo-icon {
+    font-size: 24px;
+  }
+  
+  .brand-tagline {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+}
